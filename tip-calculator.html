@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      margin-top:50px;
+      background-color: #333;
+      color:#fff;
+    }
+    form {
+      margin-top:20px;
+    }
+    #my-button {
+      background-color:red;
+      padding:10px 40px;
+      border:none;
+      color:#fff;
+      margin:15px 0px;
+    }
+    .total {
+      margin-top:20px;
+    }
+    #tip{
+      font-size: 36px;
+    }
+    #total {
+      font-size: 36px;
+    }
+
+  </style>
+  <title>Tip Calculator</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <h1 class="text-center display-4">Tip Calculator</h1>
+        <form>
+          <div class="form-group">
+            <h4 class="display-5 text-left">Total Bill Amount:</h4>
+            <input id="bill" type="number" class="form-control form-control-lg" placeholder="$ 00.00">
+          </div>
+          <div class="form-group">
+            <h4 class="display-5 text-left"> How as your service?</h4>
+            <select id="serviceLevel" name="service" class="form-control">
+              <option id="excellent" value="excellent">Excellent - 25%</option>
+              <option id="okay" value="okay">Okay - 20%</option>
+              <option id="bad" value="bad">Bad - 15%</option>
+            </select>
+          </div>
+        </form>
+        <button id="my-button">Calculate</button>
+        <div id="output">
+          <h4 class="display-5 text-left">Tip amount:</h4>
+          <div id="tip">
+
+          </div>
+          <h4 class="display-5 text-left total">Total bill with tip:</h4>
+          <div id="total">
+
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // get element references - no need to keep repeating this in the function
+  var myBtn = document.getElementById('my-button');
+  var tipElem = document.getElementById("tip");
+  var totalElem = document.getElementById("total");
+
+  //attach click event listener
+  myBtn.addEventListener('click', calc);
+
+  //the event object is passed to this automatically - I'm assigning it to "e"
+  function calc(e) {
+  //prevent the default action - form submit / page refresh
+  e.preventDefault();
+  var input = document.getElementById('bill');
+  //convert string value to Number
+  var bill = parseFloat(input.value);
+  var ddl = document.getElementById("serviceLevel");
+  var selectedValue = ddl.options[ddl.selectedIndex].value;
+
+  if (selectedValue == "excellent"){
+    var total = 0.25*bill+bill;
+    tipElem.textContent = "$ "+Number((bill)*0.25).toFixed(2);
+    totalElem.textContent = "$ "+Number(total).toFixed(2);
+  } else if (selectedValue == "okay") {
+    var total = 0.20*bill+bill;
+    tipElem.textContent = "$ "+Number((bill)*0.20).toFixed(2);
+    totalElem.textContent = "$ "+Number(total).toFixed(2);
+  } else if (selectedValue == "bad") {
+    var total = 0.15*bill+bill;
+    tipElem.textContent = "$ "+Number((bill)*0.15).toFixed(2);
+    totalElem.textContent = "$ "+Number(total).toFixed(2);
+  }
+
+  }
+</script>
+
+</body>
+</html>
